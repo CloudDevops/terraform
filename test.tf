@@ -1,14 +1,14 @@
 provider "aws" {
-  access_key = "AKIAJJECWO7B5D75ZWSQ"
-  secret_key = "pVYtR2G88YnGm/hRDF79xuc3ethK/nf0sB0R1LET"
+#  access_key = ""
+#  secret_key = ""
   region     = "us-west-2"
 }
 
 resource "aws_instance" "example_1" {
 #  ami           = "ami-2757f631"
-   ami		 = "ami-bf4193c7"
+   ami		 = "ami-223f945a"
   instance_type = "t2.micro"
-  key_name = "new"
+  key_name = "terra"
 
   user_data = <<-EOF
               #!/bin/bash
@@ -23,7 +23,7 @@ resource "aws_instance" "example_1" {
 
 resource "aws_instance" "example_2" {
 #  ami           = "ami-2757f631"
-   ami           = "ami-bf4193c7"
+   ami           = "ami-223f945a"
   instance_type = "t2.micro"
   availability_zone = "us-west-2b"
 
@@ -32,7 +32,7 @@ resource "aws_instance" "example_2" {
               echo "Server B" > index.html
               nohup busybox httpd -f -p 8080 &
               EOF
-  key_name = "new"
+  key_name = "terra"
 
   tags {
     Name = "Server B"
@@ -43,17 +43,17 @@ resource "aws_instance" "example_3" {
 #  ami           = "ami-2757f631"
 #  ami           = "ami-bf4193c7"
 #  ami           = "ami-b469e6cc"
-  ami           = "ami-920f86ea"
+  ami           = "ami-223f945a"
   instance_type = "t2.micro"
   availability_zone = "us-west-2b"
-  security_groups   = ["sg-terraform"]
+  security_groups   = ["terraform-sg"]
 
 #  user_data = <<-EOF
 #              #!/bin/bash
 #              echo "Server B" > index.html
 #              nohup busybox httpd -f -p 8080 &
 #              EOF
-  key_name = "new"
+  key_name = "terra"
 
   tags {
     Name = "Server B - bash"
@@ -72,17 +72,17 @@ resource "aws_instance" "example_4" {
 #  ami           = "ami-2757f631"
 #  ami           = "ami-bf4193c7"
 #  ami           = "ami-b469e6cc"
-  ami           = "ami-69199011"
+  ami           = "ami-223f945a"
   instance_type = "t2.micro"
   availability_zone = "us-west-2a"
-  security_groups   = ["sg-terraform"]
+  security_groups   = ["terraform-sg"]
 
 #  user_data = <<-EOF
 #              #!/bin/bash
 #              echo "Server B" > index.html
 #              nohup busybox httpd -f -p 8080 &
 #              EOF
-  key_name = "new"
+  key_name = "terra"
 
   tags {
     Name = "Server A - httpd bash"
@@ -101,7 +101,7 @@ resource "aws_instance" "example_4" {
 
 
 resource "aws_security_group" "sg" {
-  name = "sg-terraform"
+  name = "terraform-sg"
   
     egress {
     from_port = 0
@@ -121,10 +121,10 @@ resource "aws_security_group" "sg" {
 data "aws_availability_zones" "all" {}
 
 resource "aws_launch_configuration" "asg" {
-  image_id = "ami-69199011"
+  image_id = "ami-223f945a"
   instance_type = "t2.micro"
  # security_groups = ["${aws_security_group.instance.id}"]
-  security_groups = ["sg-terraform"]
+ # security_groups = ["terraform-sg"]
   user_data = <<-EOF
               #!/bin/bash
               #echo "Hello, World" > index.html
@@ -163,7 +163,7 @@ variable "server_port" {
 
 resource "aws_elb" "example" {
   name = "terraform-asg-example"
-  security_groups = ["sg-terraform"]
+#  security_groups = ["terraform-sg"]
   availability_zones = ["${data.aws_availability_zones.all.names}"]
 #  instances                   = ["i-0fdff02403e7bc66e","i-0e7c3c4d6ef699b17"]
 
