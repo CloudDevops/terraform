@@ -3,10 +3,10 @@ variable "region" {
 }
 
 variable "profile" {
-	default = "jpl-sa-test-tera1"
+	default = "value"
 }
 
 variable "vpc_id" {
-	default = "vpc-bd71c4da"
+	default = "value"
 }
 	
