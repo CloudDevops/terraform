@@ -111,7 +111,7 @@ resource "aws_elb" "example" {
 #  instances                   = ["i-0fdff02403e7bc66e","i-0e7c3c4d6ef699b17"]
 instances                   = ["${aws_instance.example_a.id}","${aws_instance.example_b.id}"]
 
-instances                   = ["example_a","example_b"]
+# instances                   = ["example_a","example_b"]
 
    health_check {
     healthy_threshold = 2
