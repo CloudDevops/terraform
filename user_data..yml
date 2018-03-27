@@ -7,4 +7,4 @@
    - sudo chkconfig httpd on
    - sudo touch /var/www/html/index.html
    - sudo chmod ugo+w /var/www/html/index.html
-   - sudo echo 'Hello, World' > /var/www/html/index.html
+   - sudo echo 'Web Server' > /var/www/html/index.html
