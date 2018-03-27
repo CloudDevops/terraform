@@ -6,7 +6,7 @@ variable "profile" {
 	default = "value"
 }
 
-variable "vpc_id" {
-	default = "value"
-}
+#variable "vpc_id" {
+#	default = "value"
+#}
 	
